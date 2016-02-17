@@ -169,7 +169,7 @@ function Level() {
 
 //    //document.createElement("div");
 
-//    var tmpArr = document.getElementById("game-level");
+    //var tmpArr = document.getElementById("game-level");
 
 
     for (var i = 0; i < as2D.length; i++) {
