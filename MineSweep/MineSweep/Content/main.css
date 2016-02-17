@@ -40,3 +40,13 @@
     height: 30em;
     background-color: greenyellow;
 }
+
+#game-level {
+    clear: both; 
+
+}
+
+.node {
+    width: 1em;
+    height: 1em; 
+}
