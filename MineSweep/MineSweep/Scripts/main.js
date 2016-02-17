@@ -7,7 +7,7 @@ $(document).ready(function () {
         interval: 7500
     });
 
-    fillBoard();
+    //fillBoard();
 
     mineSweep.Player().SetName("Fredrik"); 
     mineSweep.Player().IncreaseClicks();
@@ -38,7 +38,9 @@ function MineSweep() {
 
         CreateLevel(10, 10);
 
-        UpdateLevel(); 
+        UpdateLevel();
+
+        fillBoard(level);
 
     };
 
@@ -152,14 +154,13 @@ function Level() {
 
 }
 
-function fillBoard() {
+function fillBoard(as2D) {
 
-    as2D = new Array();
-    as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-    as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
-    as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
+    //as2D = new Array();
+    //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+    //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
+    //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-    //document.createElement("div");
 
     var tmpArr = document.getElementById("game-level");
 
