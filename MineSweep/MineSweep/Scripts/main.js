@@ -7,7 +7,7 @@ $(document).ready(function () {
         interval: 7500
     });
 
-    //fillBoard();
+    fillBoard();
 
     mineSweep.Player().SetName("Fredrik"); 
     mineSweep.Player().IncreaseClicks();
@@ -159,11 +159,25 @@ function fillBoard() {
     as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+    //document.createElement("div");
+
     var tmpArr = document.getElementById("game-level");
 
-    for (var i = 0; i < as2D.length; i++) {
-        tmpArr.appendChild(as2D[i]);
-    }
-    alert(tmpArr);
+    //for (var i = 0; i < as2D.length; i++) {
+    //    tmpArr.appendChild(as2D[i]);
+    //}
+    //alert(tmpArr);
 
+
+    for (var i = 0; i < as2D.length; i++) {
+        var row = "<div>";
+        for (var j = 0; j < as2D[i].length; j++) {
+            row += "<div>" + as2D[i] + as2D[j] + "</div>";
+            //alert(i)
+        }
+        row += "</div>";
+       
+    }
+    $(tmpArr).append(row)
+    
 }
