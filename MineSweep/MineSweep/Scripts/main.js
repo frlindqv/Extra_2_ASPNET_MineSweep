@@ -32,6 +32,7 @@ function MineSweep() {
 
     // private field holding the current level; 
     var level;
+    this.level = function () { return level };
 
     // Method responsible for initalizing a new game session.
     this.InitGame = function () {
@@ -40,7 +41,8 @@ function MineSweep() {
 
         UpdateLevel(); 
 
-        fillBoard(level);
+        mineSweep.fillBoard();
+        console.log(level);
 
     };
 
@@ -162,7 +164,7 @@ function Level() {
 
 }
 
-function fillBoard(as2D) {
+mineSweep.prototype.fillBoard = function () {
 
     //as2D = new Array();
     //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
@@ -173,11 +175,11 @@ function fillBoard(as2D) {
     var tmpArr = document.getElementById("game-level");
 
 
-    for (var i = 0; i < as2D.length; i++) {
+    for (var i = 0; i < Level.length; i++) {
         var row = "<div>";
-        row += "<div>" + as2D[i] + "</div>";
+        row += "<div>" + Level[i] + "</div>";
         row += "</div>";
         $(tmpArr).append(row)
     }
-    
-}
+
+};
