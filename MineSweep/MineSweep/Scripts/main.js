@@ -11,6 +11,8 @@ $(document).ready(function ()
     mineSweep.Player().SetName("Fredrik"); 
     mineSweep.Player().IncreaseClicks();
 
+    mineSweep.InitGame(); 
+
     //mineSweep.SetPlayer(new Player("Fredrik"));
 
     //mineSweep.InitGame();
@@ -31,7 +33,13 @@ function MineSweep(){
     var level;
 
     // Method responsible for initalizing a new game session.
-    this.InitGame = function () {};
+    this.InitGame = function () {
+
+        CreateLevel(10, 10);
+
+        UpdateLevel(); 
+
+    };
 
     // Method responsible for running a  running the game.
     this.RunGame = function () { };
@@ -49,17 +57,76 @@ function MineSweep(){
         player = newPlayer;
     }
 
-    //this.CreateLevel(length, width)
-    //{
-    //    level = new Array(length);
+    function CreateLevel(length, width)
+    {
+        level = new Array(); 
+       
+        for (i = 0; i < parseInt(length); i++)
+        {
+           
+            tmpRow = new Array(); 
 
-      
+            for (j = 0; j < (parseInt(width)); j++) {
+               
+                tmpNode = new Node();
+                tmpNode.SetXpos(j);
+                tmpNode.SetYpos(i);
+                tmpRow.push(tmpNode);
+               
+            }
 
-    //}
+            level.push(tmpRow);
+
+        }
+        alert("Level length" + level.length);
+    }
+
+    function UpdateLevel()
+    {
+       
+        for (i = 0; i < level.length; i++) {
+        
+            for (j = 0; j < level[i].length; j++) {
+
+                alert(level[i][j].GetXpos() + " " + level[i][j].GetYpos());
+
+            }
+        }
+
+    }
 
 
 
 }
+
+function Node()
+{
+    var x;
+    var y;
+
+
+    // Set current player. 
+    this.SetXpos = function (coordinateX) {
+        x = coordinateX;
+    }
+
+    // Set current player. 
+    this.SetYpos = function (coordinateY) {
+        y = coordinateY;
+    }
+
+    // Set current player. 
+    this.GetXpos = function () {
+        return x;
+    }
+
+    // Set current player. 
+    this.GetYpos = function () {
+        return y;
+    }
+
+}
+
 
 // Class representing a player. 
 function Player() {
