@@ -1,0 +1,42 @@
+﻿body, html {
+    height: 100%;
+}
+
+.jumbotron {
+
+    margin-bottom: 0; 
+}
+
+#footer {
+    background-color: black; 
+    color: #FFF;
+    padding: 2em; 
+    text-align: center; 
+}
+
+.custom-item {
+
+    margin-bottom: 2em; 
+}
+
+#minesweep-game-container 
+{
+    width: 80%; 
+    height: 20em;
+    margin: 0 auto; 
+    background-color: aquamarine;
+}
+
+.counter {
+    margin-top: 1em;
+    height: 4em;
+    background-color: darkred; 
+    text-align: center; 
+}
+
+.right-column-container {
+    width: 90%; 
+    margin: 0 auto; 
+    height: 30em;
+    background-color: greenyellow;
+}
