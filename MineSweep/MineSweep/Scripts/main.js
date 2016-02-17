@@ -155,29 +155,20 @@ function Level() {
 function fillBoard() {
 
     as2D = new Array();
-    as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+    as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
+    as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
     //document.createElement("div");
 
     var tmpArr = document.getElementById("game-level");
 
-    //for (var i = 0; i < as2D.length; i++) {
-    //    tmpArr.appendChild(as2D[i]);
-    //}
-    //alert(tmpArr);
-
 
     for (var i = 0; i < as2D.length; i++) {
         var row = "<div>";
-        for (var j = 0; j < as2D[i].length; j++) {
-            row += "<div>" + as2D[i] + as2D[j] + "</div>";
-            //alert(i)
-        }
+        row += "<div>" + as2D[i] + "</div>";
         row += "</div>";
-       
+        $(tmpArr).append(row)
     }
-    $(tmpArr).append(row)
     
 }
