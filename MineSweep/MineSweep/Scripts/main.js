@@ -32,7 +32,8 @@ function MineSweep() {
 
     // private field holding the current level; 
     var level;
-    this.level = function () { return level };
+
+    this.Level = function () { return level };
 
     // Method responsible for initalizing a new game session.
     this.InitGame = function () {
@@ -41,7 +42,7 @@ function MineSweep() {
 
         UpdateLevel(); 
 
-        mineSweep.FillBoard();
+        mineSweep.FillBoard("Skiten funkar");
         console.log(level);
 
     };
@@ -158,26 +159,25 @@ function Player() {
 
 }
 
-//Class representing a level
-function Level() {
-
-
-}
-
-MineSweep.prototype.FillBoard = function () {
+MineSweep.prototype.FillBoard = function (msg) {
 
     //as2D = new Array();
     //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
     //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
     //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-
+    alert(msg); 
     var tmpArr = document.getElementById("game-level");
 
 
-    for (var i = 0; i < Level.length; i++) {
+    for (var i = 0; i < this.Level().length; i++) {
         var row = "<div>";
-        row += "<div>" + Level[i] + "</div>";
+
+        for (j = 0; j < this.Level()[0].length; j++)
+        {
+            row += "<input class='node'>";
+        }
+
         row += "</div>";
         $(tmpArr).append(row)
     }
