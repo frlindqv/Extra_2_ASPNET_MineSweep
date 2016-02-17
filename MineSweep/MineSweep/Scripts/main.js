@@ -41,7 +41,7 @@ function MineSweep() {
 
         UpdateLevel(); 
 
-        mineSweep.fillBoard();
+        mineSweep.FillBoard();
         console.log(level);
 
     };
@@ -164,7 +164,7 @@ function Level() {
 
 }
 
-mineSweep.prototype.fillBoard = function () {
+MineSweep.prototype.FillBoard = function () {
 
     //as2D = new Array();
     //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
