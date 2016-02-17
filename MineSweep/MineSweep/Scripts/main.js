@@ -38,7 +38,7 @@ function MineSweep() {
 
         CreateLevel(10, 10);
 
-        UpdateLevel();
+        UpdateLevel(); 
 
         fillBoard(level);
 
@@ -87,15 +87,23 @@ function MineSweep() {
     function UpdateLevel()
     {
        
-        for (i = 0; i < level.length; i++) {
+        //var newLevel; 
         
-            for (j = 0; j < level[i].length; j++) {
+        //for (i = 0; i < level.length; i++) {
 
-                alert(level[i][j].GetXpos() + " " + level[i][j].GetYpos());
+        //    newLevel += "<div>";
 
-            }
-        }
+        //    for (j = 0; j < level[i].length; j++) {
 
+        //        newLevel += "<input class='btn btn-primary node'/>";
+
+        //    }
+
+        //    newLevel += "</div>";
+
+        //}
+
+        //$("#game-level").append(newLevel); 
     }
 
 
@@ -162,7 +170,7 @@ function fillBoard(as2D) {
     //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
 
-    var tmpArr = document.getElementById("game-level");
+//    var tmpArr = document.getElementById("game-level");
 
 
     for (var i = 0; i < as2D.length; i++) {
@@ -172,4 +180,4 @@ function fillBoard(as2D) {
         $(tmpArr).append(row)
     }
     
-}
+//}
