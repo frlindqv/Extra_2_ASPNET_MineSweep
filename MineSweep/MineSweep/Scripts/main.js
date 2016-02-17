@@ -9,10 +9,10 @@ $(document).ready(function () {
 
     //fillBoard();
 
-    mineSweep.Player().SetName("Fredrik"); 
+    mineSweep.Player().SetName("Fredrik");
     mineSweep.Player().IncreaseClicks();
 
-    mineSweep.InitGame(); 
+    mineSweep.InitGame();
 
     //mineSweep.SetPlayer(new Player("Fredrik"));
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
 // Class representing a game of minesweep.
 function MineSweep() {
 
-   //Player attached to the game.
+    //Player attached to the game.
     var player = new Player();
 
     // private field holding the current level; 
@@ -40,7 +40,7 @@ function MineSweep() {
 
         CreateLevel(10, 10);
 
-        UpdateLevel(); 
+        UpdateLevel();
 
         mineSweep.FillBoard("Skiten funkar");
         console.log(level);
@@ -63,35 +63,36 @@ function MineSweep() {
         player = newPlayer;
     }
 
-    function CreateLevel(length, width)
-    {
-        level = new Array(); 
-       
-        for (i = 0; i < parseInt(length); i++)
-        {
-           
-            tmpRow = new Array(); 
+    function CreateLevel(length, width) {
+        level = new Array();
 
-            for (j = 0; j < (parseInt(width)); j++) {
-               
+        for (i = 0; i < parseInt(length) ; i++) {
+
+            tmpRow = new Array();
+
+            for (j = 0; j < (parseInt(width)) ; j++) {
+
                 tmpNode = new Node();
                 tmpNode.SetXpos(j);
                 tmpNode.SetYpos(i);
+                tmpNode.setValue(Math.floor(Math.random() * 2))
                 tmpRow.push(tmpNode);
-               
+
             }
 
             level.push(tmpRow);
 
         }
-        alert("Level length" + level.length);
+        //alert("Level length" + level.length);
+        
+
+
     }
 
-    function UpdateLevel()
-    {
-       
+    function UpdateLevel() {
+
         //var newLevel; 
-        
+
         //for (i = 0; i < level.length; i++) {
 
         //    newLevel += "<div>";
@@ -113,12 +114,13 @@ function MineSweep() {
 
 }
 
-function Node()
-{
+function Node() {
     var x;
     var y;
+    var value;
 
-      
+    this.setValue = function (tmpVal) { value = tmpVal;}
+
     // Set current player. 
     this.SetXpos = function (coordinateX) {
         x = coordinateX;
@@ -166,15 +168,14 @@ MineSweep.prototype.FillBoard = function (msg) {
     //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
     //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-    alert(msg); 
+    alert(msg);
     var tmpArr = document.getElementById("game-level");
 
 
     for (var i = 0; i < this.Level().length; i++) {
         var row = "<div>";
 
-        for (j = 0; j < this.Level()[0].length; j++)
-        {
+        for (j = 0; j < this.Level()[0].length; j++) {
             row += "<input class='node'>";
         }
 
