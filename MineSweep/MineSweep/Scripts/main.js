@@ -74,20 +74,19 @@ function MineSweep() {
         player = newPlayer;
     }
 
-    function CreateLevel(length, width)
-    {
+    function CreateLevel(length, width) {
         level = new Array(); 
        
-        for (i = 0; i < parseInt(length); i++)
-        {
+        for (i = 0; i < parseInt(length) ; i++) {
            
             tmpRow = new Array(); 
 
-            for (j = 0; j < (parseInt(width)); j++) {
+            for (j = 0; j < (parseInt(width)) ; j++) {
                
                 tmpNode = new Node();
                 tmpNode.SetXpos(j);
                 tmpNode.SetYpos(i);
+                tmpNode.setValue(Math.floor(Math.random() * 2))
                 tmpRow.push(tmpNode);
                
             }
@@ -95,7 +94,10 @@ function MineSweep() {
             level.push(tmpRow);
 
         }
-        alert("Level length" + level.length);
+        //alert("Level length" + level.length);
+        
+
+
     }
     // Update level during game.
     function UpdateLevel(curXCoordinate, curYCoordinate)
@@ -115,18 +117,19 @@ function MineSweep() {
 
 
 
-       
+
     }
 
 
 
 }
 
-function Node()
-{
+function Node() {
     var x;
     var y;
+    var value;
 
+    this.setValue = function (tmpVal) { value = tmpVal;}
       
     // Set current player. 
     this.SetXpos = function (coordinateX) {
@@ -182,8 +185,7 @@ MineSweep.prototype.FillBoard = function (msg) {
     for (var i = 0; i < this.Level().length; i++) {
         var row = "<div>";
 
-        for (j = 0; j < this.Level()[0].length; j++)
-        {
+        for (j = 0; j < this.Level()[0].length; j++) {
             row += "<input class='node'>";
         }
 
