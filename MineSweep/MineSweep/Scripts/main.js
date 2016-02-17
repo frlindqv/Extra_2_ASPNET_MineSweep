@@ -21,6 +21,12 @@ $(document).ready(function () {
         console.log(mineSweep.Player().Clicks());
     });
 
+    $("#game-level").on('click','input.node', function ()
+    {
+        mineSweep.RunGame($(this).index(), $(this).parent().index());
+
+    })
+
 });
 
 
@@ -40,18 +46,23 @@ function MineSweep() {
 
         CreateLevel(10, 10);
 
-        UpdateLevel(); 
-
         mineSweep.FillBoard("Skiten funkar");
         console.log(level);
 
     };
 
     // Method responsible for running a  running the game.
-    this.RunGame = function () { };
+    this.RunGame = function (xCoor, yCoor) {
+
+        UpdateLevel(xCoor, yCoor);
+    };
 
     // Method resposible for ending a game session.
-    this.EndGame = function () { };
+    this.EndGame = function ()
+    {
+
+
+    };
 
     // Get current player
     this.Player = function () {
@@ -86,27 +97,25 @@ function MineSweep() {
         }
         alert("Level length" + level.length);
     }
-
-    function UpdateLevel()
+    // Update level during game.
+    function UpdateLevel(curXCoordinate, curYCoordinate)
     {
+        // Check mines. 
+        for (i = curYCoordinate - 1; i <= curYCoordinate + 1; i++)
+        {
+            for (j = curXCoordinate - 1; j <= curXCoordinate + 1; j++) {
+
+                if (i >= 0 && j >= 0 && j < level.length && i < level.length) {
+
+                    alert("x = " + j + " y = " + i);
+                }
+            }
+        }
+
+
+
+
        
-        //var newLevel; 
-        
-        //for (i = 0; i < level.length; i++) {
-
-        //    newLevel += "<div>";
-
-        //    for (j = 0; j < level[i].length; j++) {
-
-        //        newLevel += "<input class='btn btn-primary node'/>";
-
-        //    }
-
-        //    newLevel += "</div>";
-
-        //}
-
-        //$("#game-level").append(newLevel); 
     }
 
 
