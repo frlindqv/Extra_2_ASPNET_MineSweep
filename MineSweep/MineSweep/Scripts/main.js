@@ -2,13 +2,14 @@
 var mineSweep = new MineSweep();
 
 
-$(document).ready(function ()
-{
+$(document).ready(function () {
     $('.carousel').carousel({
         interval: 7500
     });
 
-    mineSweep.Player().SetName("Fredrik"); 
+    //fillBoard();
+
+    mineSweep.Player().SetName("Fredrik");
     mineSweep.Player().IncreaseClicks();
 
     //mineSweep.SetPlayer(new Player("Fredrik"));
@@ -22,16 +23,16 @@ $(document).ready(function ()
 
 
 // Class representing a game of minesweep.
-function MineSweep(){
+function MineSweep() {
 
-   //Player attached to the game.
+    //Player attached to the game.
     var player = new Player();
 
     // private field holding the current level; 
     var level;
 
     // Method responsible for initalizing a new game session.
-    this.InitGame = function () {};
+    this.InitGame = function () { };
 
     // Method responsible for running a  running the game.
     this.RunGame = function () { };
@@ -53,7 +54,7 @@ function MineSweep(){
     //{
     //    level = new Array(length);
 
-      
+
 
     //}
 
@@ -68,7 +69,7 @@ function Player() {
     var time;
     var clicks = 0;
 
-    this.Name = function (){ return name; };
+    this.Name = function () { return name; };
 
     this.SetName = function (val) { name = val; };
 
@@ -79,8 +80,23 @@ function Player() {
 }
 
 //Class representing a level
-function Level()
-{
+function Level() {
 
+
+}
+
+function fillBoard() {
+
+    as2D = new Array();
+    as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+    var tmpArr = document.getElementById("game-level");
+
+    for (var i = 0; i < as2D.length; i++) {
+        tmpArr.appendChild(as2D[i]);
+    }
+    alert(tmpArr);
 
 }
