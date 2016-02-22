@@ -1,13 +1,14 @@
-﻿//Global instance 
-var mineSweep = new MineSweep();
+﻿(function () {
 
 
 $(document).ready(function () {
+
+        //Global instance 
+        var mineSweep = new System.MineSweepGame();
+
     $('.carousel').carousel({
         interval: 7500
     });
-
-    //fillBoard();
 
     mineSweep.Player().SetName("Fredrik"); 
     mineSweep.Player().IncreaseClicks();
@@ -21,17 +22,35 @@ $(document).ready(function () {
         console.log(mineSweep.Player().Clicks());
     });
 
-    $("#game-level").on('click','input.node', function ()
-    {
-        mineSweep.RunGame($(this).index(), $(this).parent().index());
+        $("#game-level").on('mousedown', 'input.node', function (e) {
 
-    })
+            switch (e.which) {
+                case 1:
+                    mineSweep.RunGame($(this));
+                    break;
+                case 3:
+                    alert("Höger knapp nedtryckt");
+                    break;
+            }
+
 
 });
+
+    });
+
+
+
+    //Check if namespace System.Game exists
+    var System = System || {};
+
+    // Attach class to namespace System
+    System.MineSweepGame = (function () {
 
 
 // Class representing a game of minesweep.
 function MineSweep() {
+
+
 
    //Player attached to the game.
     var player = new Player();
@@ -39,27 +58,25 @@ function MineSweep() {
     // private field holding the current level; 
     var level;
 
-    this.Level = function () { return level };
+            this.Level = function () { return level; };
 
     // Method responsible for initalizing a new game session.
     this.InitGame = function () {
 
         CreateLevel(10, 10);
 
-        mineSweep.FillBoard();
-        console.log(level);
+                FillBoard("Skiten funkar");
 
     };
 
-    // Method responsible for running a  running the game.
-    this.RunGame = function (xCoor, yCoor) {
+            // Method responsible for running the game.
+            this.RunGame = function (curNode) {
 
-        UpdateLevel(xCoor, yCoor);
+                UpdateLevel(curNode);
     };
 
     // Method resposible for ending a game session.
-    this.EndGame = function ()
-    {
+            this.EndGame = function () {
 
 
     };
@@ -67,12 +84,12 @@ function MineSweep() {
     // Get current player
     this.Player = function () {
         return player;
-    }
+            };
 
     // Set current player. 
     this.SetPlayer = function (newPlayer) {
         player = newPlayer;
-    }
+            };
 
     function CreateLevel(length, width) {
         level = new Array(); 
@@ -83,35 +100,46 @@ function MineSweep() {
 
             for (j = 0; j < (parseInt(width)) ; j++) {
                
-                tmpNode = new Node();
-                tmpNode.SetXpos(j);
-                tmpNode.SetYpos(i);
-                tmpNode.setValue(Math.floor(Math.random() * 2))
+                        tmpNode = new Node(j, i);
                 tmpRow.push(tmpNode);
                
             }
 
             level.push(tmpRow);
+                }
 
+
+                //Add mines; 
+                for (i = 0; i < 8; i++) {
+                    rndX = Math.floor((Math.random() * 10));
+                    rndY = Math.floor((Math.random() * 10));
+                    level[rndY][rndX].IsMine = true;
         }
-        //alert("Level length" + level.length);
         
+                AddNumOfMinesToLevel();
+
+
 
 
     }
     // Update level during game.
-    function UpdateLevel(curXCoordinate, curYCoordinate)
-    {
+            function UpdateLevel(curNode) {
         // Check mines. 
-        for (i = curYCoordinate - 1; i <= curYCoordinate + 1; i++)
-        {
-            for (j = curXCoordinate - 1; j <= curXCoordinate + 1; j++) {
 
-                if (i >= 0 && j >= 0 && j < level.length && i < level.length) {
+                curPosX = curNode.index();
+                curPosY = curNode.parent().index();
+                node = level[curPosY][curPosX];
 
-                    alert("x = " + j + " y = " + i);
+
+                if (node.IsMine) {
+                    alert("Du förlorade");
                 }
+                else if (node.Value > 0) {
+                  
+                    curNode.val(node.Value);
             }
+                else {
+                    Reveal(curPosX, curPosY);
         }
 
 
@@ -121,75 +149,87 @@ function MineSweep() {
     }
 
 
+            function Reveal(x, y) {
+
+                if ((x >= 0 && y >= 0 && x < level.length && y < level.length)) {
+
+                    var node = level[y][x];
+
+                    $("#game-level").children().eq(y).children().eq(x).css("background-color", "yellow")
+
+                    if (!node.IsRevealed && node.Value == 0) {
+                        level[y][x].IsRevealed = true;
+
+                        Reveal(x - 1, y);
+                        Reveal(x + 1, y);
+                        Reveal(x, y + 1);
+                        Reveal(x, y - 1);
 
 }
+                    else {
 
-function Node() {
-    var x;
-    var y;
-    var value;
 
-    this.setValue = function (tmpVal) { value = tmpVal; }
-    this.getValue = function () {return value;}
+                        $("#game-level").children().eq(y).children().eq(x).val(level[y][x].Value > 0 ? level[y][x].Value : "");
+                        level[y][x].IsRevealed = true;
+                        return;
       
-    // Set current player. 
-    this.SetXpos = function (coordinateX) {
-        x = coordinateX;
+    }
+                }
+                else { return; }
+
     }
 
-    // Set current player. 
-    this.SetYpos = function (coordinateY) {
-        y = coordinateY;
+            function AddNumOfMinesToLevel() {
+
+
+                for (i = 0; i < level.length ; i++) {
+
+                    for (j = 0; j < level[0].length ; j++) {
+
+                        level[i][j].Value = GetNumberOfMines(j, i);
     }
 
-    // Set current player. 
-    this.GetXpos = function () {
-        return x;
-    }
-
-    // Set current player. 
-    this.GetYpos = function () {
-        return y;
     }
 
 }
 
+            function GetNumberOfMines(x, y) {
+                sum = 0;
 
-// Class representing a player. 
-function Player() {
+                for (k = y - 1; k <= y + 1; k++) {
+                    for (m = x - 1; m <= x + 1; m++) {
 
-    var name;
-    var time;
-    var clicks = 0;
+                        if (k >= 0 && m >= 0 && m < level.length && k < level.length) {
 
-    this.Name = function () { return name; };
+                            if (level[k][m].IsMine) {
 
-    this.SetName = function (val) { name = val; };
+                                sum++;
+                            }
+                        }
+                    }
+                }
 
-    this.Clicks = function () { return clicks; };
-
-    this.IncreaseClicks = function () { clicks++; };
-
+                return sum;
 }
 
-MineSweep.prototype.FillBoard = function () {
+            function FillBoard(msg) {
 
     //as2D = new Array();
     //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
     //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
     //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-     
+
     var tmpArr = document.getElementById("game-level");
 
 
-    for (var i = 0; i < this.Level().length; i++) {
+                for (var i = 0; i < level.length; i++) {
         var row = "<div>";
 
-        for (j = 0; j < this.Level()[0].length; j++) {
-            row += "<input class='node'>";
-            //alert(this.Level[i][j].getValue());
+                    for (j = 0; j < level.length; j++) {
 
+                            row += "<input class='node' value=''/>";
+                        
         }
 
         row += "</div>";
@@ -197,3 +237,68 @@ MineSweep.prototype.FillBoard = function () {
     }
     
 };
+
+
+
+        }
+
+
+
+        return MineSweep;
+
+    })();
+
+
+    function GameObject(positionX, positionY) {
+
+        var _x = positionX;
+        var _y = positionY;
+
+        this.GetX = function () { return _x; };
+        this.GetY = function () { return _y; };
+
+
+    }
+
+
+
+
+
+    function Node(x, y) {
+
+        //Call parent constructor.
+        GameObject.call(this, x, y);
+
+        this.IsMine = false;
+
+        this.IsRevealed = false;
+
+        this.IsMarked = false;
+
+        this.Mines = 0;
+
+    }
+    // Create a Game object instance and attach to the pointer in Node.
+    Node.prototype = Object.create(GameObject.prototype);
+    // Set constructor as Node.
+    Node.prototype.constructor = Node;
+
+
+    // Class representing a player. 
+    function Player() {
+
+        var name;
+        var time;
+        var clicks = 0;
+
+        this.Name = function () { return name; };
+
+        this.SetName = function (val) { name = val; };
+
+        this.Clicks = function () { return clicks; };
+
+        this.IncreaseClicks = function () { clicks++; };
+
+    }
+
+})();
