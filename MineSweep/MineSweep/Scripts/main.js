@@ -46,7 +46,7 @@ function MineSweep() {
 
         CreateLevel(10, 10);
 
-        mineSweep.FillBoard("Skiten funkar");
+        mineSweep.FillBoard();
         console.log(level);
 
     };
@@ -129,7 +129,8 @@ function Node() {
     var y;
     var value;
 
-    this.setValue = function (tmpVal) { value = tmpVal;}
+    this.setValue = function (tmpVal) { value = tmpVal; }
+    this.getValue = function () {return value;}
       
     // Set current player. 
     this.SetXpos = function (coordinateX) {
@@ -171,14 +172,14 @@ function Player() {
 
 }
 
-MineSweep.prototype.FillBoard = function (msg) {
+MineSweep.prototype.FillBoard = function () {
 
     //as2D = new Array();
     //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
     //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
     //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-    alert(msg); 
+     
     var tmpArr = document.getElementById("game-level");
 
 
@@ -187,6 +188,8 @@ MineSweep.prototype.FillBoard = function (msg) {
 
         for (j = 0; j < this.Level()[0].length; j++) {
             row += "<input class='node'>";
+            //alert(this.Level[i][j].getValue());
+
         }
 
         row += "</div>";
