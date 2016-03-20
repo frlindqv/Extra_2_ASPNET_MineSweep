@@ -13,27 +13,19 @@
         mineSweep.Player().SetName("Fredrik");
         mineSweep.Player().IncreaseClicks();
 
-        mineSweep.InitGame();
+        mineSweep.InitGame(40,40,200);
 
         //mineSweep.SetPlayer(new Player("Fredrik"));
 
-        //mineSweep.InitGame();
         $("h1").click(function () {
             console.log(mineSweep.Player().Clicks());
         });
 
         $("#game-level").on('mousedown', 'input.node', function (e) {
 
-            switch (e.which) {
-                case 1:
-                    mineSweep.RunGame($(this));
-                    break;
-                case 3:
-                    alert("Höger knapp nedtryckt");
-                    break;
-            }
-
-
+        
+                mineSweep.RunGame($(this),e);
+          
         });
 
     });
@@ -50,8 +42,6 @@
         // Class representing a game of minesweep.
         function MineSweep() {
 
-
-
             //Player attached to the game.
             var player = new Player();
 
@@ -61,18 +51,18 @@
             this.Level = function () { return level; };
 
             // Method responsible for initalizing a new game session.
-            this.InitGame = function () {
+            this.InitGame = function (length, width, mines) {
 
-                CreateLevel(10, 10);
+                CreateLevel(length, width,mines);
 
-                FillBoard("Skiten funkar");
+                FillBoard();
 
             };
 
             // Method responsible for running the game.
-            this.RunGame = function (curNode) {
+            this.RunGame = function (curNode,e) {
                 
-                UpdateLevel(curNode);
+                UpdateLevel(curNode,e);
             };
 
             // Method resposible for ending a game session.
@@ -91,7 +81,7 @@
                 player = newPlayer;
             };
 
-            function CreateLevel(length, width) {
+            function CreateLevel(length, width, mines) {
                 level = new Array();
 
                 for (i = 0; i < parseInt(length) ; i++) {
@@ -110,9 +100,9 @@
 
 
                 //Add mines; 
-                for (i = 0; i < 8; i++) {
-                    rndX = Math.floor((Math.random() * 10));
-                    rndY = Math.floor((Math.random() * 10));
+                for (i = 0; i < mines; i++) {
+                    rndX = Math.floor((Math.random() * length));
+                    rndY = Math.floor((Math.random() * width));
                     level[rndY][rndX].IsMine = true;
                 }
 
@@ -123,13 +113,13 @@
 
             }
             // Update level during game.
-            function UpdateLevel(curNode) {
+            function UpdateLevel(curNode,e) {
                 // Check mines. 
                
                 curPosX = curNode.index();
                 curPosY = curNode.parent().index();
                 node = level[curPosY][curPosX];
-            
+                
 
                 if (node.IsMine) {
                     alert("Du förlorade");
@@ -143,7 +133,7 @@
                 }
 
             
-
+                
            
 
             }
@@ -212,37 +202,24 @@
                 return sum;
             }
 
-            function FillBoard(msg) {
-
-                //as2D = new Array();
-                //as2D[0] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-                //as2D[1] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
-                //as2D[2] = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
-
+            function FillBoard() {
 
                 var tmpArr = document.getElementById("game-level");
-
 
                 for (var i = 0; i < level.length; i++) {
                     var row = "<div>";
 
                     for (j = 0; j < level.length; j++) {
 
-                            row += "<input class='node' value=''/>";
-                        
+                            row += "<input class='node' value=''/>";                        
                     }
 
                     row += "</div>";
-                    $(tmpArr).append(row)
+                    $(tmpArr).append(row);
                 }
 
             };
-
-
-
         }
-
-
 
         return MineSweep;
 
