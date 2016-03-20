@@ -23,9 +23,9 @@
 
         $("#game-level").on('mousedown', 'input.node', function (e) {
 
-        
+
                 mineSweep.RunGame($(this),e);
-          
+
         });
 
     });
@@ -119,7 +119,7 @@
                 curPosX = curNode.index();
                 curPosY = curNode.parent().index();
                 node = level[curPosY][curPosX];
-                
+            
 
                 if (node.IsMine) {
                     alert("Du förlorade");
@@ -133,7 +133,7 @@
                 }
 
             
-                
+
            
 
             }
@@ -211,7 +211,7 @@
 
                     for (j = 0; j < level.length; j++) {
 
-                            row += "<input class='node' value=''/>";                        
+                            row += "<input class='node' value=''/>";
                     }
 
                     row += "</div>";
